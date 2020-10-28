@@ -15,6 +15,8 @@ public class KeyListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent e) {
+        System.out.println("Key::"+e.getKeyText(e.getKeyCode()));
 
     }
 }
+
