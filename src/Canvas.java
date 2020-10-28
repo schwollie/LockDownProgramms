@@ -14,3 +14,5 @@ public class Canvas extends JPanel {
         graphics2D.drawImage(img,0, 0, null);
     }
 }
+
+

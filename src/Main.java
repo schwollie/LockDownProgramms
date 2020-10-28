@@ -1,17 +1,23 @@
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Window w = Window.getVirusWindow(1000, 1000);
         w.getCanvas().paintComponent(w.getGraphics());
         w.repaint();
 
         enableKeyListener();
+
+        Runtime rt = Runtime.getRuntime();
+        Process proc = rt.exec("jars/test.jar");
+        int exitVal = proc.exitValue();
+        System.out.println("Process exitValue: " + exitVal);
     }
 
     private static void enableKeyListener(){
