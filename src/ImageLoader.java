@@ -1,45 +1,43 @@
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ImageLoader {
 
-    private static HashMap<String, BufferedImage> images = new HashMap<>();
+    private static ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 
     public static void loadAll() {
         File[] files = new File("images/").listFiles();
-        ArrayList<File> allFiles = getAllFiles(files);
+
+        try {
+            ArrayList<File> allFiles = getAllFiles(files);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static ArrayList<File> getAllFiles(File[] dir) {
+    public static ArrayList<File> getAllFiles(File[] dir) throws IOException {
         ArrayList<File> files = new ArrayList<>();
         for (File file : dir) {
-            if (file.isDirectory()) {
-                files.addAll(getAllFiles(file.listFiles())); // Calls same method again.
-            } else if (file.getPath().endsWith(".png") || file.getPath().endsWith(".jpg") || file.getPath().endsWith(".jpeg")) {
-                files.add(file);
-            }
+            images.add(ImageIO.read(file));
         }
 
         return files;
     }
 
-    public static BufferedImage getFromFilePath(String filepath) {
-        filepath = filepath.replaceAll("/", "\\\\");
-
-        if (!images.containsKey(filepath)) {
-            System.err.println("Could not load File: " + filepath);
-        }
-
-        return ImageLoader.images.get(filepath);
-    }
-
-    public BufferedImage getRand() {
+    public static BufferedImage getRand() {
         if (images.size() == 0) {loadAll();}
-        return null;
+
+        Random rnd = new Random();
+        int i = rnd.nextInt(images.size());
+
+        return images.get(i);
+
     }
 
 
