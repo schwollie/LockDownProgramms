@@ -21,11 +21,10 @@ public class KeyListener implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
-        int keyCode = e.getKeyCode();
-        String pressedKey = NativeKeyEvent.getKeyText(keyCode);
+        String pressedKey = NativeKeyEvent.getKeyText(e.getKeyCode());
         System.out.println("Key Released: " + pressedKey);
-        robot.keyPress(keyCode);
-        robot.keyRelease(keyCode);
+        /*robot.keyPress(e.getRawCode());
+        robot.keyRelease(e.getRawCode());*/
         if ((e.getModifiers() & NativeInputEvent.CTRL_R_MASK) != 0 && e.getKeyCode() == NativeKeyEvent.VC_F) {
             System.exit(0);
         }
