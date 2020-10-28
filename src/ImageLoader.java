@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 public class ImageLoader {
 
-    private static HashMap<String, BufferedImage> images = new HashMap<>();
+    private static ArrayList<BufferedImage> images = new ArrayList<BufferedImage>();
 
     public static void loadAll() {
         File[] files = new File("images/").listFiles();
@@ -27,19 +28,14 @@ public class ImageLoader {
         return files;
     }
 
-    public static BufferedImage getFromFilePath(String filepath) {
-        filepath = filepath.replaceAll("/", "\\\\");
-
-        if (!images.containsKey(filepath)) {
-            System.err.println("Could not load File: " + filepath);
-        }
-
-        return ImageLoader.images.get(filepath);
-    }
-
-    public BufferedImage getRand() {
+    public static BufferedImage getRand() {
         if (images.size() == 0) {loadAll();}
-        return null;
+
+        Random rnd = new Random();
+        int i = rnd.nextInt(images.size());
+
+        return images.get(i);
+
     }
 
 

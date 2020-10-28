@@ -10,7 +10,7 @@ public class Canvas extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
-        g.setColor(new Color(0,0,0));
-        g.fillRect(0, 0, 200, 200);
+        img = ImageLoader.getRand();
+        graphics2D.drawImage(img,0, 0, null);
     }
 }
